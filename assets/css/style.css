@@ -119,7 +119,7 @@
 }
 
 * {
-
+ 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -128,7 +128,9 @@
 /*---------------------------------
     typography css start 
 ---------------------------------*/
+
 body {
+  zoom: 90%;
   font-family: var(--tp-ff-body);
   font-size: var(--tp-fz-body);
   font-weight: normal;
@@ -3597,6 +3599,12 @@ input[type=color] {
 }
 .course__summary p {
   font-size: 18px;
+  
+}
+.iframe{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .course__sidebar {

@@ -234,23 +234,7 @@
 
       <main>
 
-         <!-- breadcrumb area start -->
-         <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay" data-background="assets/img/breadcrumb/breadcrumb-bg-1.jpg">
-            <div class="container">
-               <div class="row">
-                  <div class="col-xxl-12">
-                     <div class="breadcrumb__content text-center p-relative z-index-1">
-                        <h3 class="breadcrumb__title">Register</h3>
-                        <div class="breadcrumb__list">
-                           <span><a href="index.html">Home</a></span>
-                           <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                           <span>Register</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
+         
          <!-- breadcrumb area end -->
 
          <!-- sign up area start -->
@@ -442,15 +426,15 @@
   
       // Your web app's Firebase configuration
       const firebaseConfig = {
+  apiKey: "AIzaSyDomGv7R8iuUJeue5twyN51uX14ETuUtsE",
+  authDomain: "ecell-svce.firebaseapp.com",
+  projectId: "ecell-svce",
+  storageBucket: "ecell-svce.appspot.com",
+  messagingSenderId: "722165112021",
+  appId: "1:722165112021:web:276dda960bc8283aa8565c",
+  measurementId: "G-5NR6KW263X"
+};
 
-         apiKey: "AIzaSyAVHJyDYEqT-4tFdzFnr70NotjMhXzcdFk",
-         authDomain: "e-cell-9444c.firebaseapp.com",
-         databaseURL: "https://e-cell-9444c-default-rtdb.firebaseio.com",
-         projectId: "e-cell-9444c",
-         storageBucket: "e-cell-9444c.appspot.com",
-         messagingSenderId: "477970153496",
-         appId: "1:477970153496:web:b6ca63c472118a1516436d"
-         };
   
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
@@ -468,19 +452,20 @@
                   // Signed in
                   const user = userCredential.user;
                   // ... user.uid
-                  set(ref(database, 'users/' + user.uid), {
+                  set(ref(database, 'newuser/' + user.uid), {
                       username:username,
                       email: email,
                       password: password
                   })
                       .then(() => {
                           // Data saved successfully!
-                          alert('user created successfully');
+                          
+                          window.location.href="newuser.html";
           
                       })
                       .catch((error) => {
                           // The write failed...
-                          alert(error);
+                          alert("Somethong went Wrong Contact Tech Team");
                       });
               })
               .catch((error) => {

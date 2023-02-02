@@ -232,22 +232,7 @@
       <main>
 
          <!-- breadcrumb area start -->
-         <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay" data-background="assets/img/breadcrumb/breadcrumb-bg-1.jpg">
-            <div class="container">
-               <div class="row">
-                  <div class="col-xxl-12">
-                     <div class="breadcrumb__content text-center p-relative z-index-1">
-                        <h3 class="breadcrumb__title">Login</h3>
-                        <div class="breadcrumb__list">
-                           <span><a href="index.html">Home</a></span>
-                           <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                           <span>Login</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
+         
          <!-- breadcrumb area end -->
 
          <!-- sign up area start -->
@@ -264,7 +249,7 @@
                <div class="row">
                   <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2">
                      <div class="section__title-wrapper text-center mb-55">
-                        <h2 class="section__title">Sign in </h2>
+                        <h2 class="section__title">Sign in</h2>
                         <!--<p><a href="#">Register here!</a></p>-->
                      </div>
                   </div>
@@ -298,9 +283,7 @@
                                    <!-- <a href="#">Forgot your password?</a>-->
                                  </div>
                               </div>
-                              <button class="tp-btn  w-100" id="submitData" type="submit"> Sign In</button>
-
-
+                              <button class="tp-btn  w-100" id="login" type="submit"> Sign In</button>
                               <div class="sign__new text-center mt-20">
                                  <p>New to E-cell? <a href="sign-up.html">Sign Up</a></p>
                               </div>
@@ -416,139 +399,137 @@
    </body>
    <script type="module">
       // Import the functions you need from the SDKs you need
-      import {initializeApp} from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
-      import {
-          getAuth,
-          createUserWithEmailAndPassword,
-          signInWithEmailAndPassword,
-          signOut
-      } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
-      import {getDatabase,get,set, ref, update} from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js";
-  
-  
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+      import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
-  
+    
       // Your web app's Firebase configuration
       const firebaseConfig = {
-
-         apiKey: "AIzaSyAVHJyDYEqT-4tFdzFnr70NotjMhXzcdFk",
-         authDomain: "e-cell-9444c.firebaseapp.com",
-         databaseURL: "https://e-cell-9444c-default-rtdb.firebaseio.com",
-         projectId: "e-cell-9444c",
-         storageBucket: "e-cell-9444c.appspot.com",
-         messagingSenderId: "477970153496",
-         appId: "1:477970153496:web:b6ca63c472118a1516436d"
-         };
-  
+             
+             apiKey: "AIzaSyAVHJyDYEqT-4tFdzFnr70NotjMhXzcdFk",
+             authDomain: "e-cell-9444c.firebaseapp.com",
+             databaseURL: "https://e-cell-9444c-default-rtdb.firebaseio.com",
+             projectId: "e-cell-9444c",
+             storageBucket: "e-cell-9444c.appspot.com",
+             messagingSenderId: "477970153496",
+             appId: "1:477970153496:web:b6ca63c472118a1516436d"
+             };
+    
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
-      const auth = getAuth();
       const database = getDatabase(app);
-  
-      submitData.addEventListener('click', (e) => {
-  
-          var email = document.getElementById('email').value;
-          
-
-
-          var password = document.getElementById('password').value;
-          
+      const auth = getAuth();
     
-  
-          //sign up user
-         /* createUserWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
-                  // Signed in
-                  const user = userCredential.user;
-                  // ... user.uid
-                  set(ref(database, 'users/' + user.uid), {
-                      email: email,
-                      password: password
-                  })
-                      .then(() => {
-                          // Data saved successfully!
-                          alert('user created successfully');
-          
-                      })
-                      .catch((error) => {
-                          // The write failed...
-                          alert(error);
-                      });
-              })
-              .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  // ..
-                  alert(errorMessage);
-              });*/
-  
-          // log in user
-          signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) =>{
-                // Signed in
-                const user = userCredential.user;
-                // ...
-
-                // save log in details into real time database
-                var lgDate = new Date();
-                const admin="admin@ecell.com"
-                const eleader="eleader@ecell.com"
-                update(ref(database, 'users/' + user.uid), {
-                    last_login: lgDate,
-                })
-                
-
-                    .then(() => {
-                     if(email == admin ){
-                        alert('Admin logged in successfully');
-                        window.location.href = "upload.html"
-                        // Data saved successfully!
-                     }
-                     else if(email == eleader){
-                        alert('E-leader logged in successfully')
-                        window.location.href = "upload.html"
-                     }
-                     else {
-                        alert('User logged in successfully')
-                        window.location.href = "create.html"
-
-                     }
-                    
-
-                     })
-                     
-
-                    
-
-                     
-            
-                        
-
-                   
-                    
-                    .catch((error) => {
-                        // The write failed...
-                        alert(error);
-                    });
-              
-
-               })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage);
-            });
-
-        //sign out user
-        signOut(auth).then(() => {
-               // Sign-out successful.
-        }).catch((error) => {
-            // An error happened.
+    /*signUp.addEventListener('click',(e) => {
+    
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var username = document.getElementById('username').value;
+    
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+         // Signed in 
+          const user = userCredential.user;
+    
+          set(ref(database, 'users/' + user.uid),{
+              username: username,
+              email: email
+          })
+    
+          alert('user created!');
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+    
+          alert(errorMessage);
+        // ..
         });
+    
     });
-  
-  </script>
+    */
+     login.addEventListener('click',(e)=>{
+       var email = document.getElementById('email').value;
+       var password = document.getElementById('password').value;
+    
+          signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            const admin="admin@ecell.com"
+            const eleader="eleader@ecell.com"
+            const techteam="techteam@ecell.com"
+    
+            const dt = new Date();
+             update(ref(database, 'users/' + user.uid),{
+              last_login: dt,
+            })
 
+               .then(()=>{
+                  if(email == admin){
+                     window.location.href="upload.html"
+                  }
+                  else if(email == eleader){
+                     
+                     window.location.href="upload.html"
+                  }
+                  else if(email == techteam){
+                     alert('Tech Team logged in successfully')
+                     window.location.href="backend.html";
+                  }
+                  else{
+                     
+                     window.location.href="upload.html"
+                  }
+               }
+               )
+    
+            
+            // ...
+          })
+          .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-</html>
+        alert(errorMessage);
+  });
+
+ });
+    
+    const user = auth.currentUser;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        //bla bla bla
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        //bla bla bla
+      }
+    });
+    
+    logout.addEventListener('click',(e)=>{
+    
+       signOut(auth).then(() => {
+         // Sign-out successful.
+         alert('user loged out');
+         Window.location.reload()
+       }).catch((error) => {
+         // An error happened.
+         const errorCode = error.code;
+         const errorMessage = error.message;
+    
+            
+       });
+    
+    });
+    
+    </script>
+    
+    </html>
